@@ -1,0 +1,24 @@
+*{
+    font: 16px Arial, sans-serif;
+}
+header{
+    background-color: #dbdde2;
+    width: 15%;
+    left: 0;
+    top: 0;
+    position: fixed;
+    height: 100%;
+    padding: 20px;
+}
+header h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+header button {
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border: none;
+    cursor: pointer;
+}
