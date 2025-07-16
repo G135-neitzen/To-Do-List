@@ -10,3 +10,8 @@ class Task {
         this.completed = false;
     }
 }
+
+function createToDo(){
+    const modal = document.getElementById('modal');
+
+}
