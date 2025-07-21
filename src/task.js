@@ -1,4 +1,7 @@
-
+const ToDos = [];
+/**
+ * Represents a Task with a title, description, due date, priority, and status.
+ */
 class Task {
     constructor(title, description, dueDate, priority) {
         this.title = title;
@@ -14,7 +17,7 @@ class todoStatus extends Task {
     }
 }
 
-function createToDo() {
+function createmodalToDo() {
     const modal = document.createElement("modal");
     modal.classList.add("data-open-modal");
     modal.innerHTML = `
@@ -42,7 +45,28 @@ function createToDo() {
     `;
     document.body.appendChild(modal);
 }
+function createToDo() {
+    const form = document.querySelector("#todo-form");
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const title = form.elements["title"].value;
+        const description = form.elements["description"].value;
+        const dueDate = form.elements["dueDate"].value;
+        const priority = form.elements["priority"].value;
+        const status = "pending"; // Default status
+        const newTask = new todoStatus(
+            title,
+            description,
+            dueDate,
+            priority,
+            status
+        );
+        form.reset();
+        document.querySelector("[data-modal]").close();
+        ToDos.push(newTask);
 
+    });
+}
 function displayModal() {
     const modal = document.querySelector("[data-modal]");
     const openModal = document.querySelector("#AddTo-Do");
@@ -61,8 +85,8 @@ function displayModal() {
     });
 }
 document.addEventListener("DOMContentLoaded", () => {
-    createToDo();
+    createmodalToDo();
     displayModal();
 });
 export default Task;
-export { todoStatus, createToDo, displayModal };
+export { todoStatus, createmodalToDo, displayModal };
