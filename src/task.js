@@ -15,6 +15,19 @@ class todoStatus extends Task {
         super(title, description, dueDate, priority);
         this.status = status;
     }
+    toggleStatus() {
+        const status = document.createElement("select");
+        status.innerHTML = `
+            <option value="pending">Pending</option>
+            <option value="in-progress">In Progress</option>
+            <option value="completed">Completed</option>
+        `;
+        status.value = this.status;
+        status.addEventListener("change", (e) => {
+            this.status = e.target.value;
+        });
+        return status;
+    }
 }
 
 function createmodalToDo() {
