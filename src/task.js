@@ -11,9 +11,10 @@ class Task {
     }
 }
 class todoStatus extends Task {
-    constructor(title, description, dueDate, priority, status) {
+    constructor(title, description, dueDate, priority, status, id) {
         super(title, description, dueDate, priority);
         this.status = status;
+        this.id = id || Date.now(); // Unique ID based on timestamp
     }
     toggleStatus() {
         const status = document.createElement("select");
@@ -29,9 +30,12 @@ class todoStatus extends Task {
         return status;
     }
 }
+function addTaskToList(task) {
+    ToDos.push(task);
+}
 
 function createmodalToDo() {
-    const modal = document.createElement("modal");
+    const modal = document.createElement("div");
     modal.classList.add("data-open-modal");
     modal.innerHTML = `
         <dialog data-modal>
@@ -58,6 +62,7 @@ function createmodalToDo() {
     `;
     document.body.appendChild(modal);
 }
+
 function createToDo() {
     const form = document.querySelector("#todo-form");
     form.addEventListener("submit", (e) => {
@@ -76,7 +81,7 @@ function createToDo() {
         );
         form.reset();
         document.querySelector("[data-modal]").close();
-        ToDos.push(newTask);
+        addTaskToList(newTask);
 
     });
 }
@@ -101,5 +106,4 @@ document.addEventListener("DOMContentLoaded", () => {
     createmodalToDo();
     displayModal();
 });
-export default Task;
-export { todoStatus, createmodalToDo, displayModal };
+export { createToDo, createmodalToDo, displayModal, addTaskToList, Task, todoStatus };
