@@ -1,3 +1,4 @@
+
 const ToDos = [];
 /**
  * Represents a Task with a title, description, due date, priority, and status.
@@ -53,7 +54,6 @@ function createmodalToDo() {
                     <option value="medium">Medium</option>
                     <option value="high">High</option>
                 </select>
-                <label for="status">Status:</label>
                 <button type="submit" class="submitToDo">Add To-Do</button>
                <button type="reset" class="resetToDo">Reset</button>
             </form>
@@ -63,7 +63,7 @@ function createmodalToDo() {
     document.body.appendChild(modal);
 }
 
-function createToDo() {
+function createToDo(onCreateCallback) {
     const form = document.querySelector("#todo-form");
     form.addEventListener("submit", (e) => {
         e.preventDefault();
@@ -79,10 +79,12 @@ function createToDo() {
             priority,
             status
         );
+
+        
         form.reset();
         document.querySelector("[data-modal]").close();
         addTaskToList(newTask);
-
+        if(onCreateCallback) onCreateCallback();
     });
 }
 function displayModal() {
@@ -106,4 +108,4 @@ document.addEventListener("DOMContentLoaded", () => {
     createmodalToDo();
     displayModal();
 });
-export { createToDo, createmodalToDo, displayModal, addTaskToList, Task, todoStatus };
+export { createToDo, createmodalToDo, displayModal, addTaskToList, Task, todoStatus, ToDos };
