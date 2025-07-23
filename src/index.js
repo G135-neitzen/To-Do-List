@@ -1,5 +1,5 @@
 // src/index.js
-import { createToDo, displayModal, createmodalToDo, Task, todoStatus, addTaskToList, ToDos } from './task.js';
+import { createToDo, displayModal, createmodalToDo, Task, todoStatus, addTaskToList, ToDos, setupDeleteListener, createID } from './task.js';
 import styles from './styles.css';
 
 // Initialize the To-Do List application
@@ -21,9 +21,16 @@ function displayTodayToDos() {
         const text = document.createTextNode(
             `${task.title} - ${task.description} - (Due: ${task.dueDate}) - Priority: ${task.priority} - Status: `
         );
+        const deleteButton = document.createElement("button");
+        deleteButton.classList.add("delete-task");
+        deleteButton.dataset.taskId = task.id; // Set the task ID for deletion
+        deleteButton.textContent = "Delete";
         listItem.appendChild(text);
         const statusSelect = task.toggleStatus();
         listItem.appendChild(statusSelect);
         taskList.appendChild(listItem);
-    });
+        listItem.appendChild(deleteButton);
+       
+    }); 
+    setupDeleteListener(displayTodayToDos); // Set up delete listeners for each task
 }

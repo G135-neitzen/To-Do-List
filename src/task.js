@@ -1,21 +1,21 @@
-
+import { v4 as uuidv4 } from 'uuid';
 const ToDos = [];
 /**
  * Represents a Task with a title, description, due date, priority, and status.
  */
 class Task {
-    constructor(title, description, dueDate, priority) {
+    constructor(title, description, dueDate, priority, id) {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.priority = priority;
+        this.id = id
     }
 }
 class todoStatus extends Task {
-    constructor(title, description, dueDate, priority, status, id) {
-        super(title, description, dueDate, priority);
+    constructor(title, description, dueDate, priority, id, status) {
+        super(title, description, dueDate, priority, id);
         this.status = status;
-        this.id = id || Date.now(); // Unique ID based on timestamp
     }
     toggleStatus() {
         const status = document.createElement("select");
@@ -35,6 +35,9 @@ function addTaskToList(task) {
     ToDos.push(task);
 }
 
+function createID() {
+    return (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : Date.now().toString();
+}
 function createmodalToDo() {
     const modal = document.createElement("div");
     modal.classList.add("data-open-modal");
@@ -62,6 +65,19 @@ function createmodalToDo() {
     `;
     document.body.appendChild(modal);
 }
+function setupDeleteListener(onDeleteCallback) {
+    const deleteButtons = document.querySelectorAll(".delete-task");
+    deleteButtons.forEach(button => {
+        button.addEventListener("click", (e) => {
+            const taskId = e.target.dataset.taskId;
+            const taskIndex = ToDos.findIndex(task => task.id === taskId);
+            if (taskIndex !== -1) {
+                ToDos.splice(taskIndex, 1);
+                if(onDeleteCallback) onDeleteCallback();
+            }
+        });
+    });
+}
 
 function createToDo(onCreateCallback) {
     const form = document.querySelector("#todo-form");
@@ -77,16 +93,17 @@ function createToDo(onCreateCallback) {
             description,
             dueDate,
             priority,
+            createID(), // Generate a unique ID for the task
             status
         );
-
-        
         form.reset();
         document.querySelector("[data-modal]").close();
         addTaskToList(newTask);
-        if(onCreateCallback) onCreateCallback();
+        if (onCreateCallback) onCreateCallback();
+        setupDeleteListener(); // Set up delete listeners after adding a new task
     });
 }
+
 function displayModal() {
     const modal = document.querySelector("[data-modal]");
     const openModal = document.querySelector("#AddTo-Do");
@@ -108,4 +125,4 @@ document.addEventListener("DOMContentLoaded", () => {
     createmodalToDo();
     displayModal();
 });
-export { createToDo, createmodalToDo, displayModal, addTaskToList, Task, todoStatus, ToDos };
+export { createToDo, createmodalToDo, displayModal, addTaskToList, Task, todoStatus, ToDos, setupDeleteListener, createID };
