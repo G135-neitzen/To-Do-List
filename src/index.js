@@ -1,5 +1,6 @@
 // src/index.js
 import { createToDo, displayModal, createmodalToDo, Task, todoStatus, addTaskToList, ToDos, setupDeleteListener, createID } from './task.js';
+import { Project, Projects, createProject } from './Project.js';
 import styles from './styles.css';
 
 // Initialize the To-Do List application
@@ -8,7 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
     createmodalToDo();
     displayModal();
     createToDo(displayTodayToDos); // Pass the displayTodayToDos function to createToDo
-    displayTodayToDos(); // Display today's tasks on load
+    displayTodayToDos();// Display today's tasks on load
+    addEventListener("click", displayProjects) 
 });
 
 function displayTodayToDos() {
@@ -33,4 +35,15 @@ function displayTodayToDos() {
        
     }); 
     setupDeleteListener(displayTodayToDos); // Set up delete listeners for each task
+}
+
+function displayProjects () {
+    const projectList = document.querySelector("#view-projects");
+    projectList.innerHTML = ""; // Clear existing projects
+    const projects = Projects; // Assuming you have a method to get all projects
+    projects.forEach(project => {
+        const listItem = document.createElement("li");
+        listItem.textContent = project.name;
+        projectList.appendChild(listItem);
+    });
 }
