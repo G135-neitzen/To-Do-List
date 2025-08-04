@@ -23,3 +23,7 @@ header button {
     border: none;
     cursor: pointer;
 }
+main {
+    margin-left: 17%; /* Same width as the header */
+    padding: 20px;
+}

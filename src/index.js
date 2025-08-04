@@ -1,6 +1,6 @@
 // src/index.js
 import { createToDo, displayModal, createmodalToDo, Task, todoStatus, addTaskToList, ToDos, setupDeleteListener, createID } from './task.js';
-import { Project, Projects, createProject, createProjectModal } from './Project.js';
+import { Project, Projects, createProject, createProjectModal } from './project.js';
 import styles from './styles.css';
 
 // Initialize the To-Do List application
@@ -11,12 +11,22 @@ document.addEventListener("DOMContentLoaded", () => {
     createToDo(displayTodayToDos); // Pass the displayTodayToDos function to createToDo
     displayTodayToDos();// Display today's tasks on load
 
-    createProjectModal();
+    createProjectModal(); 
+
+    // Espera a que el modal esté en el DOM antes de inicializar el formulario
+    createProject();
 
     document.getElementById("add-project").addEventListener("click", () => {
-        document.querySelector('[data-project-modal]').showModal();
+        // Selecciona el dialog correctamente
+        const projectDialog = document.querySelector('[data-project-modal]');
+        if (projectDialog) {
+            projectDialog.showModal();
+        } else {
+            console.error("No se encontró el modal de proyectos en el DOM.");
+        }
     });
-    createProject();
+
+    displayProjects(); // Display existing projects on load
 });
 
 function displayTodayToDos() {
@@ -42,5 +52,19 @@ function displayTodayToDos() {
     }); 
     setupDeleteListener(displayTodayToDos); // Set up delete listeners for each task
 }
-
+function displayProjects() {
+    const projectList = document.querySelector("#project-list");
+    projectList.innerHTML = ""; // Clear existing projects
+    Projects.forEach(project => {
+        const listItem = document.createElement("li");
+        listItem.textContent = project.name;
+        const deleteButton = document.createElement("button");
+        deleteButton.classList.add("delete-project");
+        deleteButton.dataset.projectId = project.id; // Set the project ID for deletion
+        deleteButton.textContent = "Delete";
+        listItem.appendChild(deleteButton);
+        projectList.appendChild(listItem);
+    });
+    setupProjectDeleteListener(); // Set up delete listeners for each project
+}
 
