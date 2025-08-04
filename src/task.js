@@ -125,4 +125,4 @@ document.addEventListener("DOMContentLoaded", () => {
     createmodalToDo();
     displayModal();
 });
-export { createToDo, createmodalToDo, displayModal, addTaskToList, Task, todoStatus, ToDos, setupDeleteListener, createID };
+export { createToDo, createmodalToDo, displayModal, addTaskToList, Task, todoStatus, ToDos, setupDeleteListener, createID, toggleStatus };

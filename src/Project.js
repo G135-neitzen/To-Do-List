@@ -1,4 +1,4 @@
-import { Task, todoStatus, createID } from './task.js';
+import { Task, todoStatus, createID, toggleStatus } from './task.js';
 
 
 const Projects = [];
@@ -10,14 +10,14 @@ class Project {
         this.id = createID(); // Generate a unique ID for the project
     }
 
-    addTask(title, description, dueDate, priority) {
+    addTask(title, description, dueDate, priority, id, status) {
         const task = new todoStatus(
             title,
             description,
             dueDate,
             priority,
-            createID(), // Generate a unique ID for the task
-            "pending" // Default status
+            id = createID(), // Generate a unique ID for the task
+            status = toggleStatus()
         );
         this.tasks.push(task);
         return task;
@@ -98,7 +98,7 @@ function createProject(onCreateCallback) {
                 // Mostrar la tarea en el UI
                 const taskList = projectCard.querySelector(`#task-list-${newProject.id}`);
                 const li = document.createElement("li");
-                li.textContent = `${newTask.title} - ${newTask.priority} - ${newTask.status}`;
+                li.textContent = `${newTask.title} - ${newTask.description} - ${newTask.dueDate} - ${newTask.priority} - ${newTask.status}`;
                 taskList.appendChild(li);
             }
         });
