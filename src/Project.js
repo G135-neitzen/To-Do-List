@@ -17,7 +17,7 @@ class Project {
             dueDate,
             priority,
             id = createID(), // Generate a unique ID for the task
-            status = toggleStatus()
+            status = "pending" // Default status
         );
         this.tasks.push(task);
         return task;
@@ -99,6 +99,8 @@ function createProject(onCreateCallback) {
                 const taskList = projectCard.querySelector(`#task-list-${newProject.id}`);
                 const li = document.createElement("li");
                 li.textContent = `${newTask.title} - ${newTask.description} - ${newTask.dueDate} - ${newTask.priority} - ${newTask.status}`;
+                const statusSelect = newTask.toggleStatus();
+                li.appendChild(statusSelect);
                 taskList.appendChild(li);
             }
         });

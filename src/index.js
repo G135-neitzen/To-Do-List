@@ -1,6 +1,6 @@
 // src/index.js
 import { createToDo, displayModal, createmodalToDo, Task, todoStatus, addTaskToList, ToDos, setupDeleteListener, createID } from './task.js';
-import { Project, Projects, createProject, createProjectModal } from './project.js';
+import { Project, Projects, createProject, createProjectModal } from './Project.js';
 import styles from './styles.css';
 
 // Initialize the To-Do List application
