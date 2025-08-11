@@ -10,31 +10,35 @@
 
 <body>
     <header>
-        <div class="h1eader">
+        <div class="header-section">
             <h1>Welcome!</h1>
         </div>
+        
         <div class="tools">
-            <h1>Tools</h1>
-            <button id="AddTo-Do">Add To-Do</button><br>
-            <button id="Search To-Do">Search</button><br>
-            <button id="Today-tasks">Today</button><br>
-            <button id="Upcoming-tasks">Upcoming</button><br>
-            <button id="Completed-tasks">Completed</button><br>
+            <h2>Tools</h2>
+            <button id="AddTo-Do">Add To-Do</button>
+            <button id="Search To-Do">Search</button>
+            <button id="Today-tasks">Today</button>
+            <button id="Upcoming-tasks">Upcoming</button>
+            <button id="Completed-tasks">Completed</button>
         </div>
+        
         <div class="projects">
-            <h1>Projects</h1>
-            <button id="add-project">Add Project</button><br>
-            <button id="view-projects">View Projects</button><br>
+            <h2>Projects</h2>
+            <button id="add-project">Add Project</button>
+            <button id="view-projects">View Projects</button>
         </div>
     </header>
+    
     <main>
         <div class="today-tasks">
-            <h2>today</h2>
+            <h2>Today's Tasks</h2>
             <ul id="task-listToday"></ul>
         </div>
-        <div class="project-Section">
+        
+        <div class="project-section" style="display: none;">
             <h2>Projects</h2>
-            <ul id="project-container"></ul>
+            <div id="project-container"></div>
         </div>
     </main> 
 </body>
